@@ -15,8 +15,8 @@ function createAddQuoteForm() {
     const quoteCategory = document.getElementById("newQuoteCategory").value;
 
     if (quoteText && quoteCategory) {
-        quotes.push({ text: quoteText, category: quoteCategory });
-        document.getElementById("newQuoteText").value = '';
+        quotes.appendChild({ text: quoteText, category: quoteCategory });
+        document.getElementById("newQuoteText").createElement('');
         document.getElementById("newQuoteCategory").value = '';
         alert("Quote added successfully!");
     } else {
