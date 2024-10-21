@@ -4,7 +4,7 @@ let quotes = [
     { text: "Your time is limited, don't waste it living someone else's life.", category: "Life" }
 ];
 
-function showRandomQuote() {
+function showRandomQuote("innerHTML") {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const quoteDisplay = document.getElementById("quoteDisplay");
     quoteDisplay.textContent = `"${quotes[randomIndex].text}" - ${quotes[randomIndex].category}`;
