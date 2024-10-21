@@ -10,7 +10,7 @@ function showRandomQuote("innerHTML") {
     quoteDisplay.textContent = `"${quotes[randomIndex].text}" - ${quotes[randomIndex].category}`;
 }
 
-function addQuote() {
+function createAddQuoteForm() {
     const quoteText = document.getElementById("newQuoteText").value;
     const quoteCategory = document.getElementById("newQuoteCategory").value;
 
@@ -25,4 +25,4 @@ function addQuote() {
 }
 
 document.getElementById("newQuote").addEventListener("click", showRandomQuote);
-document.getElementById("addQuote").addEventListener("click", addQuote);
+document.getElementById("createAddQuoteForm").addEventListener("click", createAddQuoteForm);
