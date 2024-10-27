@@ -1,3 +1,34 @@
+let quotes = [];
+
+function loadQuotes() {
+    const storedQuotes = JSON.parse(localStorage.getItem('quotes'));
+    if (storedQuotes) {
+        quotes = storedQuotes;
+        displayQuotes();
+    }
+}
+
+function addQuote(newQuote) {
+    quotes.push(newQuote);
+    saveQuotes();
+}
+
+function saveQuotes() {
+    localStorage.setItem('quotes', JSON.stringify(quotes));
+}
+
+function displayQuotes() {
+}
+loadQuotes();
+function displayQuote(index) {
+    sessionStorage.setItem('lastViewedQuoteIndex', index);
+}
+
+function loadLastViewedQuote() {
+    const lastIndex = sessionStorage.getItem('lastViewedQuoteIndex');
+    }
+}
+loadLastViewedQuote();
 let quotes = [
     { text: "The only limit to our realization of tomorrow is our doubts of today.", category: "Inspiration" },
     { text: "Life is 10% what happens to us and 90% how we react to it.", category: "Motivation" },
