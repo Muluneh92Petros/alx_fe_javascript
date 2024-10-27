@@ -80,7 +80,7 @@ setInterval(async () => {
     const newQuotes = await fetchQuotes();
     
 }, 30000); 
-async function syncQuotes() {
+async function syncQuotes("Quotes synced with server!") {
     const newQuotes = await fetchQuotes();
     const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
 
