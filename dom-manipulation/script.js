@@ -1,22 +1,4 @@
 let quotes = [];
-document.addEventListener('DOMContentLoaded', async () => {
-   await syncQuotes();
-   setInterval(syncQuotes, 30000); c
-});
-const style = document.createElement('style');
-style.innerHTML = `
-.notification {
-   position: fixed;
-   top: 10px;
-   right: 10px;
-   background-color: #f0ad4e;
-   color: white;
-   padding: 10px;
-   border-radius: 5px;
-   z-index: 1000;
-}
-`;
-document.head.appendChild(style);
 function loadQuotes() {
     const storedQuotes = JSON.parse(localStorage.getItem('quotes'));
     if (storedQuotes) {
@@ -77,7 +59,45 @@ let quotes = [
     { text: "Life is 10% what happens to us and 90% how we react to it.", category: "Motivation" },
     { text: "Your time is limited, don't waste it living someone else's life.", category: "Life" }
 ];
+function resolveConflicts(localQuotes, newQuotes) {
+    newQuotes.forEach(newQuote => {
+        const index = localQuotes.indexOf(newQuote);
+        if (index !== -1) {
+            localQuotes[index] = newQuote;
+        }
+    });
+}
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
+async function fetchQuotes() {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    return data.map(quote => quote.body); 
+}
+
+setInterval(async () => {
+    const newQuotes = await fetchQuotes();
+    
+}, 30000); 
+async function syncQuotes() {
+    const newQuotes = await fetchQuotes();
+    const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+
+    newQuotes.forEach(newQuote => {
+        if (!localQuotes.includes(newQuote)) {
+            localQuotes.push(newQuote);
+        }
+    });
+
+    localStorage.setItem('quotes', JSON.stringify(localQuotes));
+}
+function notifyUser(message) {
+    const notification = document.createElement('div');
+    notification.innerText = message;
+    notification.className = 'notification';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 5000);
+}
 function showRandomQuote("innerHTML") {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const quoteDisplay = document.getElementById("quoteDisplay");
