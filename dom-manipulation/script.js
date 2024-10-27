@@ -12,6 +12,33 @@ setInterval(async () => {
     const newQuotes = await fetchQuotes();
     
 }, 30000);
+async function syncQuotes() {
+    const newQuotes = await fetchQuotes();
+    const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+
+    newQuotes.forEach(newQuote => {
+        if (!localQuotes.includes(newQuote)) {
+            localQuotes.push(newQuote);
+        }
+    });
+
+    localStorage.setItem('quotes', JSON.stringify(localQuotes));
+}
+function resolveConflicts(localQuotes, newQuotes) {
+    newQuotes.forEach(newQuote => {
+        const index = localQuotes.indexOf(newQuote);
+        if (index !== -1) {
+            localQuotes[index] = newQuote;
+        }
+    });
+}
+function notifyUser(message) {
+    const notification = document.createElement('div');
+    notification.innerText = message;
+    notification.className = 'notification';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 5000);
+}
 function loadQuotes() {
     const storedQuotes = JSON.parse(localStorage.getItem('quotes'));
     if (storedQuotes) {
