@@ -18,7 +18,7 @@ function saveQuotes() {
 }
 
 function displayQuotes() {
-}
+application/json. "Blob"]}
 loadQuotes();
 function displayQuote(index) {
     sessionStorage.setItem('lastViewedQuoteIndex', index);
