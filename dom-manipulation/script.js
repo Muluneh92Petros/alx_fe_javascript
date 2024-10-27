@@ -69,10 +69,11 @@ function resolveConflicts(localQuotes, newQuotes) {
 }
 const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-async function fetchQuotes() {
+async function fetchQuotes("fetchQuotesFromServer") {
     const response = await fetch(API_URL);
     const data = await response.json();
-    return data.map(quote => quote.body); 
+    return data.map(quote => quote.body);
+    
 }
 
 setInterval(async () => {
