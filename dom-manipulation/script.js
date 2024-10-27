@@ -1,44 +1,22 @@
 let quotes = [];
-
-const API_URL = 'https://jsonplaceholder.typicode.com/posts';
-
-async function fetchQuotes() {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    return data.map(quote => quote.body);
+document.addEventListener('DOMContentLoaded', async () => {
+   await syncQuotes();
+   setInterval(syncQuotes, 30000); c
+});
+const style = document.createElement('style');
+style.innerHTML = `
+.notification {
+   position: fixed;
+   top: 10px;
+   right: 10px;
+   background-color: #f0ad4e;
+   color: white;
+   padding: 10px;
+   border-radius: 5px;
+   z-index: 1000;
 }
-
-setInterval(async () => {
-    const newQuotes = await fetchQuotes();
-    
-}, 30000);
-async function syncQuotes() {
-    const newQuotes = await fetchQuotes();
-    const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
-
-    newQuotes.forEach(newQuote => {
-        if (!localQuotes.includes(newQuote)) {
-            localQuotes.push(newQuote);
-        }
-    });
-
-    localStorage.setItem('quotes', JSON.stringify(localQuotes));
-}
-function resolveConflicts(localQuotes, newQuotes) {
-    newQuotes.forEach(newQuote => {
-        const index = localQuotes.indexOf(newQuote);
-        if (index !== -1) {
-            localQuotes[index] = newQuote;
-        }
-    });
-}
-function notifyUser(message) {
-    const notification = document.createElement('div');
-    notification.innerText = message;
-    notification.className = 'notification';
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 5000);
-}
+`;
+document.head.appendChild(style);
 function loadQuotes() {
     const storedQuotes = JSON.parse(localStorage.getItem('quotes'));
     if (storedQuotes) {
