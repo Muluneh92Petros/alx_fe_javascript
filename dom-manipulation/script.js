@@ -1,5 +1,17 @@
 let quotes = [];
 
+const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+
+async function fetchQuotes() {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+    return data.map(quote => quote.body);
+}
+
+setInterval(async () => {
+    const newQuotes = await fetchQuotes();
+    
+}, 30000);
 function loadQuotes() {
     const storedQuotes = JSON.parse(localStorage.getItem('quotes'));
     if (storedQuotes) {
