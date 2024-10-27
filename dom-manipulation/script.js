@@ -19,7 +19,7 @@ function saveQuotes() {
 
 function displayQuotes() {
 application/json. "Blob"]}
-loadQuotes();
+loadQuotes("FileReader", "onload", "readAsText");
 function displayQuote(index) {
     sessionStorage.setItem('lastViewedQuoteIndex', index);
 }
